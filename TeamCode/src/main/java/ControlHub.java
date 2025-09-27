@@ -1,3 +1,4 @@
-public class ControlHub {
 
+public class ControlHub {
+    ControlHub hub;
 }
