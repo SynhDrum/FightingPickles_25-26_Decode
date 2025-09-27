@@ -16,8 +16,8 @@ public class ControlHub {
     MecanumDrive drive;
     //public CRServo BasicServo;
     //public Servo RegularServo;
-    //public DcMotor leftWheel;
-    //public DcMotor rightWheel;
+    public DcMotor leftWheel;
+    public DcMotor rightWheel;
 
     public void init(HardwareMap map, Pose2d initialPose) {
         leftFront = map.get(DcMotor.class, "leftFront");
@@ -26,9 +26,9 @@ public class ControlHub {
         rightBack = map.get(DcMotor.class, "rightBack");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         //This is one of the motors to move the arm up and down
-        //leftWheel = map.get(DcMotor.class, "leftWheel");
+        leftWheel = map.get(DcMotor.class, "leftWheel");
         //This is one of the motors to move the arm up and down
-        //rightWheel = map.get(DcMotor.class, "rightWheel");
+        rightWheel = map.get(DcMotor.class, "rightWheel");
 
         //camera=map.get(WebcamName.class,"camera");
         drive=new MecanumDrive(map,initialPose);
