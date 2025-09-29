@@ -2,7 +2,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-@TeleOp(name="Winning") //Something
+@TeleOp(name="Winning")
 public class Winning extends LinearOpMode {
     ControlHub hub;
     @Override
@@ -43,10 +43,10 @@ public class Winning extends LinearOpMode {
         }
 
         if (!gamepad.x){
-            hub.leftFront.setPower(frontLeftPower);
-            hub.leftBack.setPower(backLeftPower);
-            hub.rightFront.setPower(frontRightPower);
-            hub.rightBack.setPower(backRightPower);
+            hub.frontLeft.setPower(frontLeftPower);
+            hub.frontRight.setPower(frontRightPower);
+            hub.backLeft.setPower(backLeftPower);
+            hub.backRight.setPower(backRightPower);
         }
     }
 }

@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 public class ControlHub {
-    public DcMotor leftFront;
-    public DcMotor rightFront;
-    public DcMotor leftBack;
-    public DcMotor rightBack;
+    public DcMotor frontLeft;
+    public DcMotor frontRight;
+    public DcMotor backLeft;
+    public DcMotor backRight;
     public ElapsedTime timer;
     MecanumDrive drive;
     //public CRServo BasicServo;
@@ -20,17 +20,16 @@ public class ControlHub {
     public DcMotor rightWheel;
 
     public void init(HardwareMap map, Pose2d initialPose) {
-        leftFront = map.get(DcMotor.class, "leftFront");
-        rightFront = map.get(DcMotor.class, "rightFront");
-        leftBack = map.get(DcMotor.class, "leftBack");
-        rightBack = map.get(DcMotor.class, "rightBack");
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft = map.get(DcMotor.class, "frontLeft");
+        frontRight = map.get(DcMotor.class, "frontRight");
+        backLeft = map.get(DcMotor.class, "beckLeft");
+        backRight = map.get(DcMotor.class, "backRight");
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         //This is one of the motors to move the arm up and down
         leftWheel = map.get(DcMotor.class, "leftWheel");
         //This is one of the motors to move the arm up and down
         rightWheel = map.get(DcMotor.class, "rightWheel");
 
-        //camera=map.get(WebcamName.class,"camera");
         drive=new MecanumDrive(map,initialPose);
     }
 }
