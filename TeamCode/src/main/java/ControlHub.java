@@ -1,3 +1,5 @@
+//Initializing code for our control hub
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,28 +10,30 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 public class ControlHub {
+    //Driving Wheels
     public DcMotor frontLeft;
     public DcMotor frontRight;
     public DcMotor backLeft;
     public DcMotor backRight;
-    public ElapsedTime timer;
+
+    public ElapsedTime timer; //uh, here's a timer i guess
+
     MecanumDrive drive;
+
+    //For servo motors
     //public CRServo BasicServo;
     //public Servo RegularServo;
-    public DcMotor leftWheel;
-    public DcMotor rightWheel;
 
-    public void init(HardwareMap map, Pose2d initialPose) {
+    public void init(HardwareMap map, Pose2d initialPose){
+        //Names of each wheel
         frontLeft = map.get(DcMotor.class, "frontLeft");
         frontRight = map.get(DcMotor.class, "frontRight");
         backLeft = map.get(DcMotor.class, "beckLeft");
         backRight = map.get(DcMotor.class, "backRight");
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        //This is one of the motors to move the arm up and down
-        leftWheel = map.get(DcMotor.class, "leftWheel");
-        //This is one of the motors to move the arm up and down
-        rightWheel = map.get(DcMotor.class, "rightWheel");
 
-        drive=new MecanumDrive(map,initialPose);
+        //Reverse any wheels as needed
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        drive = new MecanumDrive(map, initialPose);
     }
 }
