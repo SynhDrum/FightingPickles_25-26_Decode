@@ -16,7 +16,7 @@ public class Winning extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         hub = new ControlHub();
-        hub.init(hardwareMap, new Pose2d(10, 10, 1)); //Initial position
+        hub.init(hardwareMap); //Initial position
 
         waitForStart();
         while(opModeIsActive()){ //Main loop

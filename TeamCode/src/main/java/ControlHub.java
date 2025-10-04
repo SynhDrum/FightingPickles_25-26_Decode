@@ -24,16 +24,17 @@ public class ControlHub {
     //public CRServo BasicServo;
     //public Servo RegularServo;
 
-    public void init(HardwareMap map, Pose2d initialPose){
+    public void init(HardwareMap map){
         //Names of each wheel
         frontLeft = map.get(DcMotor.class, "frontLeft");
         frontRight = map.get(DcMotor.class, "frontRight");
-        backLeft = map.get(DcMotor.class, "beckLeft");
+        backLeft = map.get(DcMotor.class, "backLeft");
         backRight = map.get(DcMotor.class, "backRight");
 
         //Reverse any wheels as needed
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        drive = new MecanumDrive(map, initialPose);
+        //drive = new MecanumDrive(map, initialPose);
     }
 }
