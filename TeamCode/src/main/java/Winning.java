@@ -28,11 +28,7 @@ public class Winning extends LinearOpMode {
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
 
-        if(xMove != 0 || yMove != 0){
-            steerAngle = gamepad.right_stick_x; //Angle analogous to the front wheels on a car
-        }else{
-            steerAngle = 0;
-        }
+        steerAngle = gamepad.right_stick_x; //Angle to turn by
 
         //Drift mode
         if(gamepad.right_trigger > 0.1){
