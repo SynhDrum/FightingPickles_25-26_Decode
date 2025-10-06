@@ -20,7 +20,7 @@ public class ControlHub {
 
     MecanumDrive drive;
 
-    //For servo motors
+    //Servo motors
     //public CRServo BasicServo;
     //public Servo RegularServo;
 
