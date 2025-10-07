@@ -50,10 +50,10 @@ public class Winning extends LinearOpMode {
         double backRightPower = (vy + vx - steerAngle) / speedDivisor;
 
         if(gamepad.x){ //Emergency stop
-            frontLeftPower=0;
-            frontRightPower=0;
-            backLeftPower=0;
-            backRightPower=0;
+            frontLeftPower = 0;
+            frontRightPower = 0;
+            backLeftPower = 0;
+            backRightPower = 0;
         }
 
         if(!gamepad.x){ //Set motor powers
