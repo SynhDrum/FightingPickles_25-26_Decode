@@ -34,33 +34,33 @@ public class Winning extends LinearOpMode {
         if(gamepad.right_trigger > 0.1){
             drift = 0.95;
         }else{
-            drift /= -2;
+            drift /= 2;
         }
 
         //Interpolate speed based on drift
         vx = drift * vx + (1 - drift) * xMove;
         vy = drift * vy + (1 - drift) * yMove;
 
-        double speedDivisor = Math.max(Math.abs(vx) + Math.abs(vy), 1); //Limits a motor speed from being more than the max (1)
+        double speedDivisor = Math.max(Math.abs(vx) + Math.abs(vy) + Math.abs(steerAngle), 1); //Limits a motor speed from being more than the max (1)
 
         //Calculate individual motor speeds
-        double frontLeftPower = (vy + vx + steerAngle) / speedDivisor;
-        double backLeftPower = (vy - vx + steerAngle) / speedDivisor;
-        double frontRightPower = (vy - vx - steerAngle) / speedDivisor;
-        double backRightPower = (vy + vx - steerAngle) / speedDivisor;
+        double frontLeftVel = (vy + vx + steerAngle) / speedDivisor;
+        double backLeftVel = (vy - vx + steerAngle) / speedDivisor;
+        double frontRightVel = (vy - vx - steerAngle) / speedDivisor;
+        double backRightVel = (vy + vx - steerAngle) / speedDivisor;
 
         if(gamepad.x){ //Emergency stop
-            frontLeftPower = 0;
-            frontRightPower = 0;
-            backLeftPower = 0;
-            backRightPower = 0;
+            frontLeftVel = 0;
+            frontRightVel = 0;
+            backLeftVel = 0;
+            backRightVel = 0;
         }
 
-        if(!gamepad.x){ //Set motor powers
-            hub.frontLeft.setPower(frontLeftPower);
-            hub.frontRight.setPower(frontRightPower);
-            hub.backLeft.setPower(backLeftPower);
-            hub.backRight.setPower(backRightPower);
+        if(!gamepad.x){ //Set motor speeds
+            hub.frontLeft.setPower(frontLeftVel);
+            hub.frontRight.setPower(frontRightVel);
+            hub.backLeft.setPower(backLeftVel);
+            hub.backRight.setPower(backRightVel);
         }
     }
 }
