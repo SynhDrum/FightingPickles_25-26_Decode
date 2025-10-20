@@ -31,7 +31,7 @@ public class Winning extends LinearOpMode {
         steerAngle = gamepad.right_stick_x; //Angle to turn by
 
         //Drift mode
-        if(gamepad.right_trigger > 0.1){
+        if(gamepad.left_trigger > 0.1){
             drift = 0.95;
         }else{
             drift /= 2;
