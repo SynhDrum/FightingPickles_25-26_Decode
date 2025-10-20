@@ -34,7 +34,7 @@ public class Winning extends LinearOpMode {
         if(gamepad.left_trigger > 0.1){
             drift = 0.95;
         }else{
-            drift /= 2;
+            drift = 0;
         }
 
         //Interpolate speed based on drift
