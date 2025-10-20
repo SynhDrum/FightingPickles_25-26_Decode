@@ -49,7 +49,7 @@ public class Winning extends LinearOpMode {
         double frontRightVel = (vy - vx - steerAngle) / speedDivisor;
         double backRightVel = (vy + vx - steerAngle) / speedDivisor;
 
-        if(gamepad.x){ //Emergency stop
+        if(gamepad.x){ //Emergency movement stop
             frontLeftVel = 0;
             frontRightVel = 0;
             backLeftVel = 0;
