@@ -41,13 +41,13 @@ public class Winning extends LinearOpMode {
         vx = drift * vx + (1 - drift) * xMove;
         vy = drift * vy + (1 - drift) * yMove;
 
-        //double speedDivisor = Math.max(Math.abs(vx) + Math.abs(vy) + Math.abs(steerAngle), 1); //Limits a motor speed from being more than the max (1)
+        double speedDivisor = Math.max(Math.abs(vy + vx + steerAngle), Math.abs(vy - vx + steerAngle), Math.abs(vy + vx - steerAngle), Math.abs(vy - vx - steerAngle), 1)); //Limits all motor speeds from being more than the max (1)
 
         //Calculate individual motor speeds
-        double frontLeftVel = (vy + vx + steerAngle);
-        double backLeftVel = (vy - vx + steerAngle);
-        double frontRightVel = (vy + vx - steerAngle);
-        double backRightVel = (vy - vx - steerAngle);
+        double frontLeftVel = (vy + vx + steerAngle) / speedDivisor;
+        double backLeftVel = (vy - vx + steerAngle) / speedDivisor;
+        double frontRightVel = (vy + vx - steerAngle) / speedDivisor;
+        double backRightVel = (vy - vx - steerAngle) / speedDivisor;
 
         if(gamepad.x){ //Emergency movement stop
             frontLeftVel = 0;
