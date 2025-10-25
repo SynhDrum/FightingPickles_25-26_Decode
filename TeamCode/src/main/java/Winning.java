@@ -41,7 +41,7 @@ public class Winning extends LinearOpMode {
         vx = drift * vx + (1 - drift) * xMove;
         vy = drift * vy + (1 - drift) * yMove;
 
-        double speedDivisor = Math.max(Math.abs(vy + vx + steerAngle), Math.abs(vy - vx + steerAngle), Math.abs(vy + vx - steerAngle), Math.abs(vy - vx - steerAngle), 1)); //Limits all motor speeds from being more than the max (1)
+        double speedDivisor = Math.max(Math.max(Math.max(Math.abs(vy + vx + steerAngle), Math.abs(vy - vx + steerAngle)), Math.max(Math.abs(vy + vx - steerAngle), Math.abs(vy - vx - steerAngle))), 1); //Limits all motor speeds from being more than the max (1)
 
         //Calculate individual motor speeds
         double frontLeftVel = (vy + vx + steerAngle) / speedDivisor;
