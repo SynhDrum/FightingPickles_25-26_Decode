@@ -35,7 +35,7 @@ public class Winning extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         hub = new ControlHub();
-        hub.init(hardwareMap); //Initial position
+        hub.init(hardwareMap); //Initially map hardware
 
         imu = hardwareMap.get(IMU.class, "imu");
         logoFacingDirectionPosition = 0; // Up
@@ -93,18 +93,35 @@ public class Winning extends LinearOpMode {
         double frontRightVel = (vy + vx - steerAngle) / speedDivisor;
         double backRightVel = (vy - vx - steerAngle) / speedDivisor;
 
-        if(gamepad.x){ //Emergency movement stop
+        //Emergency movement stop
+        if(gamepad.x) {
             frontLeftVel = 0;
             frontRightVel = 0;
             backLeftVel = 0;
             backRightVel = 0;
         }
 
-        if(!gamepad.x){ //Set motor speeds
-            hub.frontLeft.setPower(frontLeftVel);
-            hub.frontRight.setPower(frontRightVel);
-            hub.backLeft.setPower(backLeftVel);
-            hub.backRight.setPower(backRightVel);
+        //Set motor speeds
+        hub.frontLeft.setPower(frontLeftVel);
+        hub.frontRight.setPower(frontRightVel);
+        hub.backLeft.setPower(backLeftVel);
+        hub.backRight.setPower(backRightVel);
+
+        //Control Intake Motor
+        if(gamepad.a) {
+            hub.intake.setPower(1);
+        }else{
+            hub.intake.setPower(0);
         }
+
+
+        /*
+        //Control Outtake Motor
+        if(gamepad.y) {
+            hub.outtake.setPower(1);
+        }else{
+            hub.outtake.setPower(0);
+        }
+        */
     }
 }

@@ -16,13 +16,14 @@ public class ControlHub {
     public DcMotor backLeft;
     public DcMotor backRight;
 
+    //Intake/Outtake Motors
+    public DcMotor intake;
+    public CRServo outtake; //Continuous Rotation Servo
+    //public Servo RegularServo; //Controllable Position Servo
+
     public ElapsedTime timer; //uh, here's a timer i guess
 
     MecanumDrive drive;
-
-    //Servo motors
-    //public CRServo BasicServo;
-    //public Servo RegularServo;
 
     public void init(HardwareMap map){
         //Names of each wheel
@@ -41,6 +42,8 @@ public class ControlHub {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //drive = new MecanumDrive(map, initialPose);
+        //Init the intake/outtake motors
+        intake = map.get(DcMotor.class, "intake");
+        //outtake = map.get(DcMotor.class, "outtake");
     }
 }
