@@ -44,6 +44,6 @@ public class ControlHub {
 
         //Init the intake/outtake motors
         intake = map.get(DcMotor.class, "intake");
-        //outtake = map.get(DcMotor.class, "outtake");
+        outtake = map.get(CRServo.class, "outtake");
     }
 }
