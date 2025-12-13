@@ -18,14 +18,14 @@ public class ControlHub {
 
     //Intake/Outtake Motors
     public DcMotor intake;
-    public CRServo outtake; //Continuous Rotation Servo
+    public DcMotor outtake; //Continuous Rotation Servo
     //public Servo RegularServo; //Controllable Position Servo
 
     public ElapsedTime timer; //uh, here's a timer i guess
 
     MecanumDrive drive;
 
-    public void init(HardwareMap map){
+    public void init(HardwareMap map,Pose2d pose){
         //Names of each wheel
         frontLeft = map.get(DcMotor.class, "frontLeft");
         frontRight = map.get(DcMotor.class, "frontRight");
@@ -44,6 +44,7 @@ public class ControlHub {
 
         //Init the intake/outtake motors
         intake = map.get(DcMotor.class, "intake");
-        outtake = map.get(CRServo.class, "outtake");
+        outtake = map.get(DcMotor.class, "outtake");
+        //drive= new MecanumDrive(map,pose);
     }
 }

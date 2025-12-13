@@ -1,6 +1,8 @@
 //Winning Code 💯🔥🔥🗣️🗣️
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -33,7 +35,12 @@ public class Winning extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         hub = new ControlHub();
-        hub.init(hardwareMap); //Initially map hardware
+
+        hub.init(hardwareMap, new Pose2d(new Vector2d(0,0),0)); //Initially map hardware
+
+        FtcDashboard dash;
+        dash=FtcDashboard.getInstance();
+        telemetry=dash.getTelemetry();
 
         imu = hardwareMap.get(IMU.class, "imu");
         logoFacingDirectionPosition = 0; // Up
@@ -59,11 +66,13 @@ public class Winning extends LinearOpMode {
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
 
-        // Create an object to receive the IMU angles
+        //Create an object to receive the IMU angles
         YawPitchRollAngles robotOrientation;
         robotOrientation = imu.getRobotYawPitchRollAngles();
 
         dir = robotOrientation.getYaw(AngleUnit.RADIANS);
+
+        telemetry.addData("Robot Direction: ", dir);
 
         steerAngle = gamepad.right_stick_x; //Angle to turn by
 
@@ -88,8 +97,8 @@ public class Winning extends LinearOpMode {
         //Calculate individual motor speeds
         double frontLeftVel = (vy + vx + steerAngle) / speedDivisor;
         double backLeftVel = (vy - vx + steerAngle) / speedDivisor;
-        double frontRightVel = (vy + vx - steerAngle) / speedDivisor;
-        double backRightVel = (vy - vx - steerAngle) / speedDivisor;
+        double frontRightVel = (vy - vx - steerAngle) / speedDivisor;
+        double backRightVel = (vy + vx - steerAngle) / speedDivisor;
 
         //Emergency movement stop
         if(gamepad.x) {
@@ -106,9 +115,9 @@ public class Winning extends LinearOpMode {
         hub.backRight.setPower(backRightVel);
 
         //Control Intake Motor
-        if(gamepad.a){
+        if(gamepad.right_trigger > 0.1){
             hub.intake.setPower(1);
-        }else if(gamepad.b){
+        }else if(gamepad.right_bumper){
             hub.intake.setPower(-1);
         }else{
             hub.intake.setPower(0);
@@ -116,7 +125,7 @@ public class Winning extends LinearOpMode {
 
         //Control Outtake Motor
         if(gamepad.y){
-            hub.outtake.setPower(-1);
+            hub.outtake.setPower(1);
         }else{
             hub.outtake.setPower(0);
         }
