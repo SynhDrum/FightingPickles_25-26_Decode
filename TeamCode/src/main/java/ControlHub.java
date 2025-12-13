@@ -45,6 +45,6 @@ public class ControlHub {
         //Init the intake/outtake motors
         intake = map.get(DcMotor.class, "intake");
         outtake = map.get(DcMotor.class, "outtake");
-        //drive= new MecanumDrive(map,pose);
+        //drive = new MecanumDrive(map,pose);
     }
 }
