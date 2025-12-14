@@ -124,8 +124,10 @@ public class Winning extends LinearOpMode {
         }
 
         //Control Outtake Motor
-        if(gamepad.y){
-            hub.outtake.setPower(1);
+        if(gamepad.left_trigger > 0.1){
+            hub.outtake.setPower(-0.5);
+        }else if(gamepad.left_bumper){
+            hub.outtake.setPower(0.5);
         }else{
             hub.outtake.setPower(0);
         }
