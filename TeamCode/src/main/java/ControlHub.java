@@ -26,25 +26,10 @@ public class ControlHub {
     MecanumDrive drive;
 
     public void init(HardwareMap map,Pose2d pose){
-        //Names of each wheel
-        frontLeft = map.get(DcMotor.class, "frontLeft");
-        frontRight = map.get(DcMotor.class, "frontRight");
-        backLeft = map.get(DcMotor.class, "backLeft");
-        backRight = map.get(DcMotor.class, "backRight");
-
-        //Reverse any wheels as needed
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        //Braking
-        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         //Init the intake/outtake motors
         intake = map.get(DcMotor.class, "intake");
         outtake = map.get(DcMotor.class, "outtake");
-        //drive = new MecanumDrive(map,pose);
+
+        drive = new MecanumDrive(map,pose);
     }
 }

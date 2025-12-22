@@ -109,7 +109,7 @@ public class Winning extends LinearOpMode {
         }
 
         //Set motor speeds
-        hub.frontLeft.setPower(frontLeftVel);
+        hub.drive.frontLeft.setPower(frontLeftVel);
         hub.frontRight.setPower(frontRightVel);
         hub.backLeft.setPower(backLeftVel);
         hub.backRight.setPower(backRightVel);

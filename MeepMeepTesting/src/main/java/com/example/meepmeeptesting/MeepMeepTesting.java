@@ -16,7 +16,7 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        int ballOrder = 1;
+        int ballOrder = 2;
 
         switch(ballOrder){
             case(1):
