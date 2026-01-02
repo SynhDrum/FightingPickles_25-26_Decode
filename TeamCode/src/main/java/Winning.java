@@ -110,9 +110,9 @@ public class Winning extends LinearOpMode {
 
         //Set motor speeds
         hub.drive.frontLeft.setPower(frontLeftVel);
-        hub.frontRight.setPower(frontRightVel);
-        hub.backLeft.setPower(backLeftVel);
-        hub.backRight.setPower(backRightVel);
+        hub.drive.frontRight.setPower(frontRightVel);
+        hub.drive.backLeft.setPower(backLeftVel);
+        hub.drive.backRight.setPower(backRightVel);
 
         //Control Intake Motor
         if(gamepad.right_trigger > 0.1){
