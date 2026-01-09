@@ -3,15 +3,10 @@
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 @TeleOp(name="Winning")
 public class Winning extends LinearOpMode {
@@ -27,14 +22,6 @@ public class Winning extends LinearOpMode {
 
     boolean leftTriggerOld = false;
 
-    static RevHubOrientationOnRobot.LogoFacingDirection[] logoFacingDirections = RevHubOrientationOnRobot.LogoFacingDirection.values();
-    static RevHubOrientationOnRobot.UsbFacingDirection[] usbFacingDirections = RevHubOrientationOnRobot.UsbFacingDirection.values();
-
-    IMU imu;
-    int logoFacingDirectionPosition;
-    int usbFacingDirectionPosition;
-    boolean orientationIsValid = true;
-
     @Override
     public void runOpMode() throws InterruptedException {
         hub = new ControlHub();
@@ -45,20 +32,6 @@ public class Winning extends LinearOpMode {
         dash=FtcDashboard.getInstance();
         telemetry=dash.getTelemetry();
 
-        imu = hardwareMap.get(IMU.class, "imu");
-        logoFacingDirectionPosition = 0; // Up
-        usbFacingDirectionPosition = 2; // Forward
-
-        RevHubOrientationOnRobot.LogoFacingDirection logo = logoFacingDirections[logoFacingDirectionPosition];
-        RevHubOrientationOnRobot.UsbFacingDirection usb = usbFacingDirections[usbFacingDirectionPosition];
-        try {
-            RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logo, usb);
-            imu.initialize(new IMU.Parameters(orientationOnRobot));
-            orientationIsValid = true;
-        } catch (IllegalArgumentException e) {
-            orientationIsValid = false;
-        }
-
         waitForStart();
         while(opModeIsActive()){ //Main loop
             motorAction(gamepad1);
@@ -68,12 +41,6 @@ public class Winning extends LinearOpMode {
     public void motorAction(Gamepad gamepad){ //Motor Code
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
-
-        //Create an object to receive the IMU angles
-        YawPitchRollAngles robotOrientation;
-        robotOrientation = imu.getRobotYawPitchRollAngles();
-
-        dir = robotOrientation.getYaw(AngleUnit.RADIANS);
 
         telemetry.addData("Robot Direction: ", dir);
         telemetry.update();
@@ -155,5 +122,4 @@ public class Winning extends LinearOpMode {
         }
     }
 }
-
 //Meowa
