@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
@@ -23,6 +24,8 @@ public class Winning extends LinearOpMode {
     double drift = 0; //Amount of drift
     double dx = 0; //Drift Velocity X
     double dy = 0; //Drift Velocity Y
+
+    boolean leftTriggerOld = false;
 
     static RevHubOrientationOnRobot.LogoFacingDirection[] logoFacingDirections = RevHubOrientationOnRobot.LogoFacingDirection.values();
     static RevHubOrientationOnRobot.UsbFacingDirection[] usbFacingDirections = RevHubOrientationOnRobot.UsbFacingDirection.values();
@@ -117,21 +120,38 @@ public class Winning extends LinearOpMode {
 
         //Control Intake Motor
         if(gamepad.right_trigger > 0.1){
-            hub.intake.setPower(-1); //Out
+            hub.intake.setPower(-1); //Intake In
         }else if(gamepad.right_bumper){
-            hub.intake.setPower(1); //In
+            hub.intake.setPower(1); //Intake Out
         }else{
-            hub.intake.setPower(0); //Off
+            hub.intake.setPower(0); //Intake Off
         }
 
-        //Control Outtake Motor
-        if(gamepad.left_trigger > 0.1){
-            hub.outtake.setPower(-0.85); //Out
+        //Control Launch (Both Motors)
 
+        boolean leftTrigger = (gamepad.left_trigger > 0.1); //Left Trigger
+
+        //Start new timer on left trigger
+        if(leftTrigger && !leftTriggerOld) {
+            hub.timer = new ElapsedTime();
+        }
+
+        if(leftTrigger != leftTriggerOld){
+            leftTriggerOld = leftTrigger; //Update old variable
+        }
+
+        if(leftTrigger){
+            if(hub.timer.seconds() >= 4 && hub.timer.seconds() < 6){
+                hub.intake.setPower(-1); //Intake In
+            }
+
+            if(hub.timer.seconds() < 6){
+                hub.outtake.setPower(-0.85); //Outtake Out
+            }
         }else if(gamepad.left_bumper){
-            hub.outtake.setPower(1); //In
+            hub.outtake.setPower(1); //Outtake In
         }else{
-            hub.outtake.setPower(0); //Off
+            hub.outtake.setPower(0); //Outtake Off
         }
     }
 }
