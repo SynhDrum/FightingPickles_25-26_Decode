@@ -94,7 +94,16 @@ public class Winning extends LinearOpMode {
             hub.intake.setPower(0); //Intake Off
         }
 
-        //Control Launch (Both Motors)
+        //Control Pusher Motor
+        if(gamepad.dpad_up){
+            hub.pusher.setPower(-1); //Pusher Out
+        }else if(gamepad.dpad_down){
+            hub.pusher.setPower(1); //Pusher Out
+        }else{
+            hub.pusher.setPower(0); //Pusher Off
+        }
+
+        //Control Launch
 
         boolean leftTrigger = (gamepad.left_trigger > 0.1); //Left Trigger
 
@@ -107,33 +116,30 @@ public class Winning extends LinearOpMode {
             leftTriggerOld = leftTrigger; //Update old variable
         }
 
-        if(gamepad.dpad_up){
-            hub.pusher.setPower(-1); //Pusher Out
-        }else if(gamepad.dpad_down){
-            hub.pusher.setPower(1); //Pusher Out
-        }else{
-            hub.pusher.setPower(0); //Pusher Off
-        }
+        if(hub.timer != null)
+        {
+            //Outtake Launch
+            if(leftTrigger){
+                //Outtake Pusher
+                if(hub.timer.seconds() >= 2 && hub.timer.seconds() < 3.8){
+                    hub.pusher.setPower(-1); //Pusher Out
+                }else{
+                    hub.pusher.setPower(0); //Pusher Off
+                }
+                if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 5){
+                    hub.intake.setPower(-1); //Intake Out
+                }else{
+                    hub.intake.setPower(0); //Intake Off
+                }
 
-        if(leftTrigger){
-            if(hub.timer.seconds() >= 2 && hub.timer.seconds() < 3.44){
-                hub.pusher.setPower(-1); //Pusher Out
+                if(hub.timer.seconds() < 5){
+                    hub.outtake.setPower(-0.85); //Outtake Out
+                }
+            }else if(gamepad.left_bumper){
+                hub.outtake.setPower(1); //Outtake In
             }else{
-                hub.pusher.setPower(0); //Pusher Off
+                hub.outtake.setPower(0); //Outtake Off
             }
-
-            if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 5){
-                hub.intake.setPower(-1); //Intake In
-            }
-
-            if(hub.timer.seconds() < 5){
-                hub.outtake.setPower(-0.85); //Outtake Out
-            }
-        }else if(gamepad.left_bumper){
-            hub.outtake.setPower(1); //Outtake In
-        }else{
-            hub.outtake.setPower(0); //Outtake Off
-            hub.pusher.setPower(0); //Pusher Off
         }
     }
 }
