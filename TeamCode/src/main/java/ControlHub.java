@@ -19,7 +19,7 @@ public class ControlHub {
     //Intake/Outtake Motors
     public DcMotor intake;
     public DcMotor outtake; //Continuous Rotation Servo
-    public Servo pusher; //Controllable Position Servo
+    public CRServo pusher; //Controllable Position Servo
 
     public ElapsedTime timer; //uh, here's a timer i guess
 
@@ -29,7 +29,7 @@ public class ControlHub {
         //Init the intake/outtake motors
         intake = map.get(DcMotor.class, "intake");
         outtake = map.get(DcMotor.class, "outtake");
-        pusher = map.get(DcMotor.class, "pusher");
+        pusher = map.get(CRServo.class, "pusher");
 
         drive = new MecanumDrive(map,pose);
     }

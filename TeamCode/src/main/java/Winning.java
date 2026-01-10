@@ -87,9 +87,9 @@ public class Winning extends LinearOpMode {
 
         //Control Intake Motor
         if(gamepad.right_trigger > 0.1){
-            hub.intake.setPower(-1); //Intake In
-        }else if(gamepad.right_bumper){
             hub.intake.setPower(1); //Intake Out
+        }else if(gamepad.right_bumper){
+            hub.intake.setPower(-1); //Intake In
         }else{
             hub.intake.setPower(0); //Intake Off
         }
@@ -107,18 +107,33 @@ public class Winning extends LinearOpMode {
             leftTriggerOld = leftTrigger; //Update old variable
         }
 
+        if(gamepad.dpad_up){
+            hub.pusher.setPower(-1); //Pusher Out
+        }else if(gamepad.dpad_down){
+            hub.pusher.setPower(1); //Pusher Out
+        }else{
+            hub.pusher.setPower(0); //Pusher Off
+        }
+
         if(leftTrigger){
-            if(hub.timer.seconds() >= 4 && hub.timer.seconds() < 6){
+            if(hub.timer.seconds() >= 2 && hub.timer.seconds() < 3.44){
+                hub.pusher.setPower(-1); //Pusher Out
+            }else{
+                hub.pusher.setPower(0); //Pusher Off
+            }
+
+            if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 5){
                 hub.intake.setPower(-1); //Intake In
             }
 
-            if(hub.timer.seconds() < 6){
+            if(hub.timer.seconds() < 5){
                 hub.outtake.setPower(-0.85); //Outtake Out
             }
         }else if(gamepad.left_bumper){
             hub.outtake.setPower(1); //Outtake In
         }else{
             hub.outtake.setPower(0); //Outtake Off
+            hub.pusher.setPower(0); //Pusher Off
         }
     }
 }

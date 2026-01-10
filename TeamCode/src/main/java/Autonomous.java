@@ -58,17 +58,6 @@ public class Autonomous extends LinearOpMode {
                         .build();
                 Actions.runBlocking(action_Movement_C);
                 break;
-        }
-
-         */
-
-
-
-        /*while(hub.timer.seconds() < 4){
-            hub.frontLeft.setPower(0.1);
-            hub.frontRight.setPower(0.1);
-            hub.backLeft.setPower(0.1);
-            hub.backRight.setPower(0.1);
         }*/
     }
 }
