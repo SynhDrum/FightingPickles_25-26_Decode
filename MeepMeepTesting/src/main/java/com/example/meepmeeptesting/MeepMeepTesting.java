@@ -20,26 +20,29 @@ public class MeepMeepTesting {
 
         switch(ballOrder){
             case(1):
-                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(62, 8, 180))
+                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(60, 8, 180))
                         .strafeToLinearHeading(new Vector2d(37, 28), Math.toRadians(90))
-                        .strafeToLinearHeading(new Vector2d(37, 52), Math.toRadians(90))
+                        .strafeToLinearHeading(new Vector2d(37, 39), Math.toRadians(90))
                         .strafeToLinearHeading (new Vector2d(37, 28), Math.toRadians(90))
+                        .strafeToLinearHeading (new Vector2d(-52, 28), Math.toRadians(90))
                         .build()
                 );
             break;
             case(2):
-                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(70, 0, 0))
+                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(60, 0, 0))
                         .strafeToLinearHeading(new Vector2d(13, 28), Math.toRadians(90))
-                        .strafeToLinearHeading(new Vector2d(13, 52), Math.toRadians(90))
+                        .strafeToLinearHeading(new Vector2d(13, 39), Math.toRadians(90))
                         .strafeToLinearHeading (new Vector2d(13, 28), Math.toRadians(90))
+                        .strafeToLinearHeading (new Vector2d(-52, 28), Math.toRadians(90))
                         .build()
                 );
             break;
             case(3):
-                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(70, 0, 0))
+                myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(60, 0, 0))
                         .strafeToLinearHeading(new Vector2d(-13, 28), Math.toRadians(90))
-                        .strafeToLinearHeading(new Vector2d(-13, 52), Math.toRadians(90))
+                        .strafeToLinearHeading(new Vector2d(-13, 39), Math.toRadians(90))
                         .strafeToLinearHeading (new Vector2d(-13, 28), Math.toRadians(90))
+                        .strafeToLinearHeading (new Vector2d(-52, 28), Math.toRadians(90))
                         .build()
                 );
             break;

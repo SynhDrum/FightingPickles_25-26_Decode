@@ -56,7 +56,7 @@ public class Winning extends LinearOpMode {
             dy = drift * dy + (1 - drift) * yMove;
 
             vx = dx / Math.cos(dir);
-            vy = dy / Math.cos(dir);
+            vy = dy / Math.sin(dir);
         }else{
             drift = 0;
             vx = xMove;
