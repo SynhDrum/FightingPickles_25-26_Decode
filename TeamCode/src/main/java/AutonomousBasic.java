@@ -14,7 +14,7 @@ public class AutonomousBasic extends LinearOpMode {
         waitForStart();
         hub.timer = new ElapsedTime();
 
-        while(hub.timer.seconds() < 9/*4.5*/){
+        while(hub.timer.seconds() < 4.5){
             hub.drive.frontLeft.setPower(0.1);
             hub.drive.frontRight.setPower(0.1);
             hub.drive.backLeft.setPower(0.1);
