@@ -121,12 +121,14 @@ public class Winning extends LinearOpMode {
             //Outtake Launch
             if(leftTrigger){
                 //Outtake Pusher
-                if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 6.8) /*|| (hub.timer.seconds() >= 5 && hub.timer.seconds() < 6.8))*/{
+                if((hub.timer.seconds() >= 3 && hub.timer.seconds() < 3.5) || (hub.timer.seconds() >= 5 && hub.timer.seconds() < 5.5))/*|| (hub.timer.seconds() >= 5 && hub.timer.seconds() < 6.8))*/{
                     hub.pusher.setPower(-1); //Pusher Out
+                }else if ((hub.timer.seconds() >= 3.5 && hub.timer.seconds() < 4) || (hub.timer.seconds() >= 5.5 && hub.timer.seconds() < 6)){
+                    hub.pusher.setPower(1); //Pusher Off
                 }else{
                     hub.pusher.setPower(0); //Pusher Off
                 }
-                if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 6.8){
+                if((hub.timer.seconds() >= 3 && hub.timer.seconds() < 4)|| (hub.timer.seconds() >= 5 && hub.timer.seconds() < 5.5)){
                     hub.intake.setPower(-1); //Intake Out
                 }else{
                     hub.intake.setPower(0); //Intake Off
