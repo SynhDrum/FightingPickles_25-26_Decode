@@ -3,6 +3,7 @@
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,14 +12,14 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 public class ControlHub {
     //Driving Wheels
-    public DcMotor frontLeft;
-    public DcMotor frontRight;
-    public DcMotor backLeft;
-    public DcMotor backRight;
+    public DcMotorEx frontLeft;
+    public DcMotorEx frontRight;
+    public DcMotorEx backLeft;
+    public DcMotorEx backRight;
 
     //Intake/Outtake Motors
-    public DcMotor intake;
-    public DcMotor outtake; //Continuous Rotation Servo
+    public DcMotorEx intake;
+    public DcMotorEx outtake; //Continuous Rotation Servo
     public CRServo pusher; //Controllable Position Servo
 
     public ElapsedTime timer; //uh, here's a timer i guess
@@ -27,8 +28,8 @@ public class ControlHub {
 
     public void init(HardwareMap map,Pose2d pose){
         //Init the intake/outtake motors
-        intake = map.get(DcMotor.class, "intake");
-        outtake = map.get(DcMotor.class, "outtake");
+        intake = map.get(DcMotorEx.class, "intake");
+        outtake = map.get(DcMotorEx.class, "outtake");
         pusher = map.get(CRServo.class, "pusher");
 
         drive = new MecanumDrive(map,pose);

@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Winning extends LinearOpMode {
     ControlHub hub; //Control hub (duh)
 
+    double TPR = 537.6;
+
     double vx = 0; //Velocity x
     double vy = 0; //Velocity y
     double dir = 0; //Direction of robot
@@ -121,18 +123,19 @@ public class Winning extends LinearOpMode {
             //Outtake Launch
             if(leftTrigger){
                 //Outtake Pusher
-                if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 6.8) /*|| (hub.timer.seconds() >= 5 && hub.timer.seconds() < 6.8))*/{
+                if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 5.7) /*|| (hub.timer.seconds() >= 5 && hub.timer.seconds() < 6.8))*/{
                     hub.pusher.setPower(-1); //Pusher Out
                 }else{
                     hub.pusher.setPower(0); //Pusher Off
                 }
-                if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 6.8){
+                if((hub.timer.seconds() >= 3 && hub.timer.seconds() < 3.3) || (hub.timer.seconds() >= 3.9 && hub.timer.seconds() < 4.2) || (hub.timer.seconds() >= 4.8 && hub.timer.seconds() < 5.7)){
                     hub.intake.setPower(-1); //Intake Out
                 }else{
                     hub.intake.setPower(0); //Intake Off
                 }
 
-                hub.outtake.setPower(-0.85); //Outtake Out
+
+                hub.outtake.setVelocity(-1 * (5239 / 60) * TPR); //Outtake Out
             }else if(gamepad.left_bumper){
                 hub.outtake.setPower(1); //Outtake In
             }else{
@@ -141,4 +144,4 @@ public class Winning extends LinearOpMode {
         }
     }
 }
-//Meow
+//Meowa
