@@ -44,11 +44,12 @@ public class Winning extends LinearOpMode {
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
 
-        double outtakeVel = hub.outtake.getVelocity();
+         double outtakeVel = hub.outtake.getVelocity();
         double outtakeRPM = Math.abs(outtakeVel / TPR * 60);
-
-        telemetry.addData("Outtake RPM: ", outtakeRPM);
-        telemetry.update();
+        while (opModeIsActive()) {
+            telemetry.addData("Outtake RPM: ", outtakeRPM);
+            telemetry.update();
+        }
 
         steerAngle = gamepad.right_stick_x; //Angle to turn by
 
@@ -138,7 +139,7 @@ public class Winning extends LinearOpMode {
                 }
 
 
-                hub.outtake.setVelocity(-1 * (5239 / 60) * TPR); //Outtake Out
+                hub.outtake.setVelocity(-1 * (5239.25 / 60) * TPR); //Outtake Out
             }else if(gamepad.left_bumper){
                 hub.outtake.setPower(1); //Outtake In
             }else{
