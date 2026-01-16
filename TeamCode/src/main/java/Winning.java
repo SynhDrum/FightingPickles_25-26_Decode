@@ -44,7 +44,10 @@ public class Winning extends LinearOpMode {
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
 
-        telemetry.addData("Robot Direction: ", dir);
+        double outtakeVel = hub.outtake.getVelocity();
+        double outtakeRPM = Math.abs(outtakeVel / TPR * 60);
+
+        telemetry.addData("Outtake RPM: ", outtakeRPM);
         telemetry.update();
 
         steerAngle = gamepad.right_stick_x; //Angle to turn by
