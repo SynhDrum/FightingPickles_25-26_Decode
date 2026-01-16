@@ -44,7 +44,7 @@ public class Winning extends LinearOpMode {
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
 
-         double outtakeVel = hub.outtake.getVelocity();
+        double outtakeVel = hub.outtake.getVelocity();
         double outtakeRPM = Math.abs(outtakeVel / TPR * 60);
         while (opModeIsActive()) {
             telemetry.addData("Outtake RPM: ", outtakeRPM);
