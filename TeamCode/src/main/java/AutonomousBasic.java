@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class AutonomousBasic extends LinearOpMode {
     ControlHub hub;
 
+    double TPR = 537.6;
+
     @Override
     public void runOpMode() throws InterruptedException {
         hub = new ControlHub();
@@ -27,22 +29,20 @@ public class AutonomousBasic extends LinearOpMode {
         hub.drive.backRight.setPower(0);
 
         hub.timer = new ElapsedTime();
-        while(hub.timer.seconds() < 5) {
-            if (hub.timer.seconds() >= 2 && hub.timer.seconds() < 3.8) {
+        while(hub.timer.seconds() < 5.7) {
+            if (hub.timer.seconds() >= 3 && hub.timer.seconds() < 5.7) {
                 hub.pusher.setPower(-1); //Pusher Out
             } else {
                 hub.pusher.setPower(0); //Pusher Off
             }
 
-            if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 5){
+            if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 3.3) || (hub.timer.seconds() >= 3.9 && hub.timer.seconds() < 4.2) || (hub.timer.seconds() >= 4.8 && hub.timer.seconds() < 5.7){
                 hub.intake.setPower(-1); //Intake Out
             }else{
                 hub.intake.setPower(0); //Intake Off
             }
 
-            if (hub.timer.seconds() < 5) {
-                hub.outtake.setPower(-0.85); //Outtake Out
-            }
+            hub.outtake.setVelocity(-1 * (5239 / 60) * TPR); //Outtake Out
         }
 
         hub.outtake.setPower(0); //Outtake Out
