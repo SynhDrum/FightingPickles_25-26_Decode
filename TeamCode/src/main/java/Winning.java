@@ -43,8 +43,11 @@ public class Winning extends LinearOpMode {
     public void motorAction(Gamepad gamepad){ //Motor Code
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
+        double ticksPerSecond = hub.outtake.getVelocity();
+        double outtakeRpm = (ticksPerSecond / TPR) * 60;
 
-        telemetry.addData("Robot Direction: ", dir);
+
+        telemetry.addData("Outtake RPM:  ", outtakeRpm);
         telemetry.update();
 
         steerAngle = gamepad.right_stick_x; //Angle to turn by
@@ -135,7 +138,7 @@ public class Winning extends LinearOpMode {
                 }
 
 
-                hub.outtake.setVelocity(-1 * (5239 / 60) * TPR); //Outtake Out
+                hub.outtake.setVelocity(-1 * (5239.25 / 60) * TPR); //Outtake Out
             }else if(gamepad.left_bumper){
                 hub.outtake.setPower(1); //Outtake In
             }else{
