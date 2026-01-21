@@ -7,16 +7,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 
-
-@TeleOp(name="WinningVelocity")
-public class WinningVelocity extends LinearOpMode {
+@TeleOp(name="Winning")
+public class Winning extends LinearOpMode {
     ControlHub hub; //Control hub (duh)
 
     double TPR = 537.6;
-    double targetRPM = 4004;
-    double gearRatio = 6000.0 / 312.0;
 
     double vx = 0; //Velocity x
     double vy = 0; //Velocity y
@@ -34,23 +30,25 @@ public class WinningVelocity extends LinearOpMode {
 
         hub.init(hardwareMap, new Pose2d(new Vector2d(0,0),0)); //Initially map hardware
 
-        FtcDashboard dash = FtcDashboard.getInstance();
-        // Combine the standard telemetry and dashboard telemetry
-        telemetry = new MultipleTelemetry(telemetry, dash.getTelemetry());
+        FtcDashboard dash;
+        dash=FtcDashboard.getInstance();
+        telemetry=dash.getTelemetry();
 
         waitForStart();
         while(opModeIsActive()){ //Main loop
             motorAction(gamepad1);
-            double outtakeRPM = Math.abs((hub.outtake.getVelocity() / TPR * 60.0) * gearRatio);
-            telemetry.addLine();
-            telemetry.addData("Outtake RPM: ", outtakeRPM);
-            telemetry.update();
         }
     }
 
     public void motorAction(Gamepad gamepad){ //Motor Code
         double xMove = gamepad.left_stick_x * 1.1; //Counteract imperfect strafing
         double yMove = -gamepad.left_stick_y; //y stick is reversed
+
+        double outtakeVel = hub.outtake.getVelocity();
+        double outtakeRPM = Math.abs(outtakeVel / TPR * 60);
+
+        telemetry.addData("Outtake RPM: ", outtakeRPM);
+        telemetry.update();
 
         steerAngle = gamepad.right_stick_x; //Angle to turn by
 
@@ -128,7 +126,7 @@ public class WinningVelocity extends LinearOpMode {
             //Outtake Launch
             if(leftTrigger){
                 //Outtake Pusher
-                if(hub.timer.seconds() >= 3) /*|| (hub.timer.seconds() >= 5 && hub.timer.seconds() < 6.8))*/{
+                if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 5.7) /*|| (hub.timer.seconds() >= 5 && hub.timer.seconds() < 6.8))*/{
                     hub.pusher.setPower(-1); //Pusher Out
                 }else{
                     hub.pusher.setPower(0); //Pusher Off
@@ -140,9 +138,9 @@ public class WinningVelocity extends LinearOpMode {
                 }
 
 
-                hub.outtake.setVelocity(-1 * (targetRPM / gearRatio / 60) * TPR); //Reverse Outtake
+                hub.outtake.setVelocity(-1 * (5239 / 60) * TPR); //Outtake Out
             }else if(gamepad.left_bumper){
-                hub.outtake.setVelocity(1 * (targetRPM / gearRatio / 60) * TPR); //Reverse Outtake
+                hub.outtake.setPower(1); //Outtake In
             }else{
                 hub.outtake.setPower(0); //Outtake Off
             }
