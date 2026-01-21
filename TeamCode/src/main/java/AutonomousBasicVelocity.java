@@ -3,8 +3,8 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutonomousBasic")
-public class AutonomousBasic extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutonomousBasicVelocity")
+public class AutonomousBasicVelocity extends LinearOpMode {
     ControlHub hub;
 
     double TPR = 537.6;
@@ -16,7 +16,7 @@ public class AutonomousBasic extends LinearOpMode {
         waitForStart();
         hub.timer = new ElapsedTime();
 
-        while(hub.timer.seconds() < 4.5){
+        while(hub.timer.seconds() < 15.75){
             hub.drive.frontLeft.setPower(0.1);
             hub.drive.frontRight.setPower(0.1);
             hub.drive.backLeft.setPower(0.1);
@@ -36,7 +36,7 @@ public class AutonomousBasic extends LinearOpMode {
                 hub.pusher.setPower(0); //Pusher Off
             }
 
-            if(hub.timer.seconds() >= 3 && hub.timer.seconds() < 3.3) || (hub.timer.seconds() >= 3.9 && hub.timer.seconds() < 4.2) || (hub.timer.seconds() >= 4.8 && hub.timer.seconds() < 5.7){
+            if((hub.timer.seconds() >= 3 && hub.timer.seconds() < 3.3) || (hub.timer.seconds() >= 3.9 && hub.timer.seconds() < 4.2) || (hub.timer.seconds() >= 4.8 && hub.timer.seconds() < 5.7)){
                 hub.intake.setPower(-1); //Intake Out
             }else{
                 hub.intake.setPower(0); //Intake Off
