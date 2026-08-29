@@ -14,9 +14,9 @@ public class Winning extends LinearOpMode {
 
     double TPR = 537.6;
 
-    double vx = 0; //Velocity x
-    double vy = 0; //Velocity y
-    double dir = 0; //Direction of robot
+    double vx = 0; //Velocity x according to the robot
+    double vy = 0; //Velocity y according to the robot
+    double dir = 0; //Direction of robot relative to starting rotation
     double steerAngle = 0; //Angle of steering
     double drift = 0; //Amount of drift
     double dx = 0; //Drift Velocity X
@@ -52,21 +52,21 @@ public class Winning extends LinearOpMode {
 
         steerAngle = gamepad.right_stick_x; //Angle to turn by
 
+        dir += steerAngle;
+
         //Drift mode
         if(gamepad.left_trigger > 0.1){
             drift = 0.95;
-
-            //Interpolate xy speed based on drift
-            dx = drift * dx + (1 - drift) * xMove;
-            dy = drift * dy + (1 - drift) * yMove;
-
-            vx = dx / Math.cos(dir);
-            vy = dy / Math.sin(dir);
         }else{
-            drift = 0;
-            vx = xMove;
-            vy = yMove;
+            drift /= 2;
         }
+
+        //Interpolate xy speed based on drift
+        dx = drift * dx + (1 - drift) * (xMove * Math.cos(dir) + yMove * Math.sin(dir));
+        dy = drift * dy + (1 - drift) * (yMove * Math.cos(dir) - xMove * Math.sin(dir));
+
+        vx = dx * Math.cos(dir) - dy * Math.sin(dir);
+        vy = dy * Math.cos(dir) + dx * Math.sin(dir);
 
         //Calculate individual motor speeds
         double frontLeftVel = (vy + vx + steerAngle);
