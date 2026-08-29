@@ -74,7 +74,8 @@ public class Winning extends LinearOpMode {
         double frontRightVel = (vy - vx - steerAngle);
         double backRightVel = (vy + vx - steerAngle);
 
-        double speedDivisor = Math.max(Math.max(Math.max(Math.abs(frontLeftVel), Math.abs(backLeftVel)), Math.max(Math.abs(backRightVel), Math.abs(frontRightVel))), 1); //Limits all motor speeds from being more than the max (1)
+        //Limit all motor speeds from being more than the max (1)
+        double speedDivisor = Math.max(Math.max(Math.max(Math.abs(frontLeftVel), Math.abs(backLeftVel)), Math.max(Math.abs(backRightVel), Math.abs(frontRightVel))), 1);
         frontLeftVel /= speedDivisor;
         backLeftVel /= speedDivisor;
         frontRightVel /= speedDivisor;
