@@ -1,6 +1,7 @@
 //Winning Code 💯🔥🔥🗣️🗣️
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Winning")
-public class Winning extends LinearOpMode {
+public class WinningVelocity extends LinearOpMode {
     ControlHub hub; //Control hub (duh)
 
     double TPR = 537.6;
@@ -30,9 +31,9 @@ public class Winning extends LinearOpMode {
 
         hub.init(hardwareMap, new Pose2d(new Vector2d(0,0),0)); //Initially map hardware
 
-        FtcDashboard dash;
-        dash=FtcDashboard.getInstance();
-        telemetry=dash.getTelemetry();
+        FtcDashboard dash = FtcDashboard.getInstance();
+        // Combine the standard telemetry and dashboard telemetry
+        telemetry = new MultipleTelemetry(telemetry, dash.getTelemetry());
 
         waitForStart();
         while(opModeIsActive()){ //Main loop
@@ -47,7 +48,8 @@ public class Winning extends LinearOpMode {
         double outtakeVel = hub.outtake.getVelocity();
         double outtakeRPM = Math.abs(outtakeVel / TPR * 60);
 
-        telemetry.addData("Outtake RPM: ", outtakeRPM);
+        telemetry.addLine();
+        telemetry.addData("Direction: ", dir);
         telemetry.update();
 
         steerAngle = gamepad.right_stick_x; //Angle to turn by
@@ -55,7 +57,7 @@ public class Winning extends LinearOpMode {
         dir += steerAngle;
 
         //Drift mode
-        if(gamepad.left_trigger > 0.1){
+        if(gamepad.y){
             drift = 0.95;
         }else{
             drift /= 2;
@@ -69,10 +71,10 @@ public class Winning extends LinearOpMode {
         vy = dy * Math.cos(dir) + dx * Math.sin(dir);
 
         //Calculate individual motor speeds
-        double frontLeftVel = (vy + vx + steerAngle);
-        double backLeftVel = (vy - vx + steerAngle);
-        double frontRightVel = (vy - vx - steerAngle);
-        double backRightVel = (vy + vx - steerAngle);
+        double frontLeftVel = vy + vx + steerAngle;
+        double backLeftVel = vy - vx + steerAngle;
+        double frontRightVel = vy - vx - steerAngle;
+        double backRightVel = vy + vx - steerAngle;
 
         //Limit all motor speeds from being more than the max (1)
         double speedDivisor = Math.max(Math.max(Math.max(Math.abs(frontLeftVel), Math.abs(backLeftVel)), Math.max(Math.abs(backRightVel), Math.abs(frontRightVel))), 1);
@@ -82,7 +84,7 @@ public class Winning extends LinearOpMode {
         backRightVel /= speedDivisor;
 
         //Emergency movement stop
-        if(gamepad.x) {
+        if(gamepad.x){
             frontLeftVel = 0;
             frontRightVel = 0;
             backLeftVel = 0;
